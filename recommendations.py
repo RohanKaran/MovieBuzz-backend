@@ -79,7 +79,3 @@ def latest():
     top_series = f.sort_values(['popularity'], ascending=False).head(10).tconst.values
 
     return {"all": allm, "trm": trending_movies, "trs": trending_series, "tm": top_movies, "ts": top_series}
-
-
-print(latest())
-print(time.time()-start)

@@ -1,0 +1,4 @@
+fastapi~=0.73.0
+pandas~=1.4.1
+cachetools~=5.0.0
+kaggle~=1.5.12

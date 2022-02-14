@@ -12,53 +12,50 @@ import pandas as pd
 start = time.time()
 
 
-def getRecommendations(movie_name):
-    def allowSelfSignedHttps(allowed):
-        # bypass the server certificate verification on client side
-        if allowed and not os.environ.get('PYTHONHTTPSVERIFY', '') and getattr(ssl, '_create_unverified_context', None):
-            ssl._create_default_https_context = ssl._create_unverified_context
-
-    allowSelfSignedHttps(True)  # this line is needed if you use self-signed certificate in your scoring service.
-
-    # Request data goes here
-    data = {
-        "Inputs": {
-            "input1":
-                [
-                    {
-                        "Col1": movie_name
-                    },
-                ]
-        },
-        "GlobalParameters": {
-        }
-    }
-
-    body = str.encode(json.dumps(data))
-    print(body)
-    url = 'http://e626eedc-13f8-40ef-869a-a714a3ab3872.centralus.azurecontainer.io/score'
-    api_key = 'YiXONYhTdkJcMHEccvHAAWYE6cNUmyiF'  # Replace this with the API key for the web service
-    headers = {'Content-Type': 'application/json', 'Authorization': ('Bearer ' + api_key)}
-
-    req = Request(url, body, headers)
-
-    try:
-        response = urlopen(req)
-
-        result = response.read()
-        result = json.loads(result)
-        return result['Results']['output1']
-    except HTTPError as error:
-        print("The request failed with status code: " + str(error.code))
-
-        # Print the headers - they include the request ID and the timestamp, which are useful for debugging the failure
-        print(error.info())
-        print(json.loads(error.read().decode("utf8", 'ignore')))
-
-    print(time.time() - start)
-
-
-cache = TTLCache(maxsize=1, ttl=86400)
+# def getRecommendations(movie_name):
+#     def allowSelfSignedHttps(allowed):
+#         # bypass the server certificate verification on client side
+#         if allowed and not os.environ.get('PYTHONHTTPSVERIFY', '') and getattr(ssl, '_create_unverified_context', None):
+#             ssl._create_default_https_context = ssl._create_unverified_context
+#
+#     allowSelfSignedHttps(True)  # this line is needed if you use self-signed certificate in your scoring service.
+#
+#     # Request data goes here
+#     data = {
+#         "Inputs": {
+#             "input1":
+#                 [
+#                     {
+#                         "Col1": movie_name
+#                     },
+#                 ]
+#         },
+#         "GlobalParameters": {
+#         }
+#     }
+#
+#     body = str.encode(json.dumps(data))
+#     print(body)
+#     url = 'http://e626eedc-13f8-40ef-869a-a714a3ab3872.centralus.azurecontainer.io/score'
+#     api_key = 'YiXONYhTdkJcMHEccvHAAWYE6cNUmyiF'  # Replace this with the API key for the web service
+#     headers = {'Content-Type': 'application/json', 'Authorization': ('Bearer ' + api_key)}
+#
+#     req = Request(url, body, headers)
+#
+#     try:
+#         response = urlopen(req)
+#
+#         result = response.read()
+#         result = json.loads(result)
+#         return result['Results']['output1']
+#     except HTTPError as error:
+#         print("The request failed with status code: " + str(error.code))
+#
+#         # Print the headers - they include the request ID and the timestamp, which are useful for debugging the failure
+#         print(error.info())
+#         print(json.loads(error.read().decode("utf8", 'ignore')))
+#
+#     print(time.time() - start)
 
 
 def latest():

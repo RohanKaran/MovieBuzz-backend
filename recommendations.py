@@ -61,7 +61,6 @@ def getRecommendations(movie_name):
 cache = TTLCache(maxsize=1, ttl=86400)
 
 
-@cached(cache)
 def latest():
     api = KaggleApi()
     api.authenticate()

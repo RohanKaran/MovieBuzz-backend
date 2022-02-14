@@ -68,14 +68,14 @@ def latest():
     link = api.kernel_output(user_name='rohankaran', kernel_slug='mrs-csv')
     f = pd.read_csv(urlopen(link['files'][0]['url']))
 
-    allm = f['tconst'].values
+    allm = f['tconst'].tolist()
 
     trending_movies = f[(f.startYear >= datetime.date.today().year - 1) & (f.titleType == "['movie']")]
-    trending_movies = trending_movies.sort_values(['popularity'], ascending=False).head(10).tconst.values
+    trending_movies = trending_movies.sort_values(['popularity'], ascending=False).head(10).tconst.tolist()
     trending_series = f[(f.startYear >= datetime.date.today().year - 1) & (f.titleType == "['tvSeries']")]
-    trending_series = trending_series.sort_values(['popularity'], ascending=False).head(10).tconst.values
+    trending_series = trending_series.sort_values(['popularity'], ascending=False).head(10).tconst.tolist()
 
-    top_movies = f.sort_values(['popularity'], ascending=False).head(10).tconst.values
-    top_series = f.sort_values(['popularity'], ascending=False).head(10).tconst.values
+    top_movies = f.sort_values(['popularity'], ascending=False).head(10).tconst.tolist()
+    top_series = f.sort_values(['popularity'], ascending=False).head(10).tconst.tolist()
 
     return {"all": allm, "trm": trending_movies, "trs": trending_series, "tm": top_movies, "ts": top_series}

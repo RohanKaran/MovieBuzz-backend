@@ -35,9 +35,9 @@ def getRecommendations(movie_name):
     }
 
     body = str.encode(json.dumps(data))
-    print(body)
-    url = 'http://e626eedc-13f8-40ef-869a-a714a3ab3872.centralus.azurecontainer.io/score'
-    api_key = 'YiXONYhTdkJcMHEccvHAAWYE6cNUmyiF'  # Replace this with the API key for the web service
+
+    url = 'http://2d874236-871e-4478-9435-05f3acb0fbb7.centralindia.azurecontainer.io/score'
+    api_key = 'Y0AWk6lhiGfJc3xdvlGkPy78LqqBZofh'  # Replace this with the API key for the web service
     headers = {'Content-Type': 'application/json', 'Authorization': ('Bearer ' + api_key)}
 
     req = Request(url, body, headers)

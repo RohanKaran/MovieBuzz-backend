@@ -39,13 +39,14 @@ def getRecommendations(movie_name):
     body = str.encode(json.dumps(data))
 
     url = 'http://2b9e4c43-ad5c-491e-8c0a-b81746d0a5d2.centralus.azurecontainer.io/score'
-    api_key = 'ZMGjhb6sGQYUyWnxeU8Phbp4Is1QDm6T'  # Replace this with the API key for the web service
+    api_key = '7oZYovajzxwFr4mTiZgmm21S1nYsTXYp'  # Replace this with the API key for the web service
     headers = {'Content-Type': 'application/json', 'Authorization': ('Bearer ' + api_key)}
 
     req = Request(url, body, headers)
 
     try:
         response = urlopen(req)
+
         result = response.read()
         result = json.loads(result)
         print(time.time() - start)
@@ -53,9 +54,8 @@ def getRecommendations(movie_name):
     except HTTPError as error:
         print("The request failed with status code: " + str(error.code))
 
-        # Print the headers - they include the request ID and the timestamp, which are useful for debugging the failure
+        # Print the headers - they include the requert ID and the timestamp, which are useful for debugging the failure
         print(error.info())
-        print(json.loads(error.read().decode("utf8", 'ignore')))
 
 
 cache = TTLCache(maxsize=1, ttl=86400)

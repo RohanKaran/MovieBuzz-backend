@@ -1,13 +1,15 @@
 import datetime
 import time
+from io import BytesIO
 from urllib.error import HTTPError
 from urllib.request import urlopen, Request
+from requests import get
 import json
 import os
 import ssl
 from cachetools import cached, TTLCache
 from kaggle import KaggleApi
-import pandas as pd
+from pandas import read_csv
 
 start = time.time()
 
@@ -36,17 +38,17 @@ def getRecommendations(movie_name):
 
     body = str.encode(json.dumps(data))
 
-    url = 'http://2d874236-871e-4478-9435-05f3acb0fbb7.centralindia.azurecontainer.io/score'
-    api_key = 'Y0AWk6lhiGfJc3xdvlGkPy78LqqBZofh'  # Replace this with the API key for the web service
+    url = 'http://2b9e4c43-ad5c-491e-8c0a-b81746d0a5d2.centralus.azurecontainer.io/score'
+    api_key = 'rdqbZqLa36tPlss5ZzREDqyz6nDhRYMQ'  # Replace this with the API key for the web service
     headers = {'Content-Type': 'application/json', 'Authorization': ('Bearer ' + api_key)}
 
     req = Request(url, body, headers)
 
     try:
         response = urlopen(req)
-
         result = response.read()
         result = json.loads(result)
+        print(time.time() - start)
         return result['Results']['output1']
     except HTTPError as error:
         print("The request failed with status code: " + str(error.code))
@@ -54,8 +56,6 @@ def getRecommendations(movie_name):
         # Print the headers - they include the request ID and the timestamp, which are useful for debugging the failure
         print(error.info())
         print(json.loads(error.read().decode("utf8", 'ignore')))
-
-    print(time.time() - start)
 
 
 cache = TTLCache(maxsize=1, ttl=86400)
@@ -66,7 +66,9 @@ def latest():
     api = KaggleApi()
     api.authenticate()
     link = api.kernel_output(user_name='rohankaran', kernel_slug='mrs-csv')
-    f = pd.read_csv(urlopen(link['files'][0]['url']))
+    response = get(link)
+    content = response.content
+    f = read_csv(BytesIO(content))
 
     allm = f['primaryTitle'].tolist()
 

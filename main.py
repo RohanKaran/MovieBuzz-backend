@@ -31,7 +31,7 @@ async def get_movies():
         raise HTTPException(404, "API error! Data not found.")
 
 
-@app.get("/get-recommendations")
+@app.post("/get-recommendations")
 async def get_recommendations(movie_name: str):
     result = getRecommendations(movie_name)
     if result:

@@ -68,7 +68,7 @@ def latest():
     link = api.kernel_output(user_name='rohankaran', kernel_slug='mrs-csv')
     f = pd.read_csv(urlopen(link['files'][0]['url']))
 
-    allm = f['tconst'].tolist()
+    allm = f['primaryTitle'].tolist()
 
     trending_movies = f[(f.startYear >= datetime.date.today().year - 1) & (f.titleType == "['movie']")]
     trending_movies = trending_movies.sort_values(['popularity'], ascending=False).head(10).tconst.tolist()

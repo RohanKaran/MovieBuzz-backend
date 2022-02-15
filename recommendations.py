@@ -11,10 +11,10 @@ from cachetools import cached, TTLCache
 from kaggle import KaggleApi
 from pandas import read_csv
 
-start = time.time()
-
 
 def getRecommendations(movie_name):
+    start = time.time()
+
     def allowSelfSignedHttps(allowed):
         # bypass the server certificate verification on client side
         if allowed and not os.environ.get('PYTHONHTTPSVERIFY', '') and getattr(ssl, '_create_unverified_context', None):
@@ -66,9 +66,10 @@ def latest():
     api = KaggleApi()
     api.authenticate()
     link = api.kernel_output(user_name='rohankaran', kernel_slug='mrs-csv')
-    response = get(link)
+    response = get(link['files'][0]['url'])
     content = response.content
     f = read_csv(BytesIO(content))
+
 
     allm = f['primaryTitle'].tolist()
 

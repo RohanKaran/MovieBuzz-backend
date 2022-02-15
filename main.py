@@ -28,7 +28,7 @@ async def get_movies():
     if result:
         return result
     else:
-        raise HTTPException(404, "API error! Data not found.")
+        raise HTTPException(404, "API error! Database is updating. Please try after some time..")
 
 
 @app.post("/get-recommendations")

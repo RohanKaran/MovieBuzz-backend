@@ -4,7 +4,7 @@ from requests import get
 from cachetools import cached, TTLCache
 from kaggle import KaggleApi
 
-cache = TTLCache(maxsize=1, ttl=86400)
+cache = TTLCache(maxsize=128, ttl=86400)
 
 
 @cached(cache)

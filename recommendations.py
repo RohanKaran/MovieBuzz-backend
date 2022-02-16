@@ -1,15 +1,8 @@
 from pickle import load
-import time
 from io import BytesIO
-from urllib.error import HTTPError
-from urllib.request import urlopen, Request
 from requests import get
-import json
-import os
-import ssl
 from cachetools import cached, TTLCache
 from kaggle import KaggleApi
-from pandas import read_csv
 
 cache = TTLCache(maxsize=1, ttl=86400)
 

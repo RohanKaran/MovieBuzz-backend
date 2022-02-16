@@ -43,7 +43,9 @@ async def get_movies():
 
 @app.post("/get-recommendations")
 async def get_recommendations(movie_schema: InputMovies):
+    start = time.time()
     result = getRecommendations(dict(movie_schema))
+    print(time.time() - start)
     if result:
         return json.dumps(result)
     else:

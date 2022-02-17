@@ -4,10 +4,11 @@ from requests import get
 from cachetools import cached, TTLCache
 from kaggle import KaggleApi
 
-cache = TTLCache(maxsize=128, ttl=80000)
+cache1 = TTLCache(maxsize=128, ttl=80000)
+cache2 = TTLCache(maxsize=128, ttl=80000)
 
 
-@cached(cache)
+@cached(cache1)
 def getDataFromKaggle():
     api = KaggleApi()
     api.authenticate()
@@ -24,7 +25,7 @@ def getRecommendations(movie_schema):
         return recommendations_list[int(movie_schema["id"])][2]
 
 
-@cached(cache)
+@cached(cache2)
 def latest():
     api = KaggleApi()
     api.authenticate()

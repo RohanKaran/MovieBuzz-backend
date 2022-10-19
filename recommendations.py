@@ -12,7 +12,7 @@ cache2 = TTLCache(maxsize=128, ttl=80000)
 def getDataFromKaggle():
     api = KaggleApi()
     api.authenticate()
-    link = api.kernel_output(user_name='rohankaran', kernel_slug='mrs-csv')
+    link = api.kernel_output(user_name='rohankaran', kernel_slug='movie-recommendation-system')
     response = get(link['files'][0]['url'])
     content = response.content
     result = load(BytesIO(content))
@@ -29,7 +29,7 @@ def getRecommendations(movie_schema):
 def latest():
     api = KaggleApi()
     api.authenticate()
-    link = api.kernel_output(user_name='rohankaran', kernel_slug='mrs-csv')
+    link = api.kernel_output(user_name='rohankaran', kernel_slug='movie-recommendation-system')
     response = get(link['files'][1]['url'])
     content = response.content
     result = load(BytesIO(content))

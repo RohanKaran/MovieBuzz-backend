@@ -11,6 +11,8 @@ COPY requirements.txt .
 # 4. Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+RUN mkdir -p /root/.kaggle
+
 # 5. Copy the rest of your application code
 COPY . .
 

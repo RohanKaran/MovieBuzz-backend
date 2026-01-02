@@ -11,7 +11,7 @@ auto_rollback = true
 app = "gunicorn -w 1 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8080 main:app"
 
 [[services]]
-internal_port = 8_080
+internal_port = 8080
 processes = [ "app" ]
 protocol = "tcp"
 

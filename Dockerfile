@@ -17,4 +17,4 @@ RUN mkdir -p /root/.kaggle
 COPY . .
 
 # 6. (Optional) Default command, though fly.toml [processes] will override this
-CMD ["gunicorn", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "-b", "0.0.0.0:8080", "main:app"]
+CMD ["gunicorn", "-w", "1", "-k", "uvicorn.workers.UvicornWorker", "-b", "0.0.0.0:8080", "main:app"]

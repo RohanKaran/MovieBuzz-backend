@@ -7,7 +7,8 @@ primary_region = "sin"
 auto_rollback = true
 
 [processes]
-app = "gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app"
+# FIX: Binds Gunicorn to 0.0.0.0:8080 so Fly.io can reach it
+app = "gunicorn -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8080 main:app"
 
 [[services]]
 internal_port = 8_080
@@ -29,6 +30,6 @@ protocol = "tcp"
   port = 443
 
   [[services.tcp_checks]]
-  grace_period = "1s"
+  grace_period = "5s"
   interval = "15s"
   timeout = "2s"
